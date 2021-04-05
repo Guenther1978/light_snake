@@ -40,12 +40,18 @@ void Led::setDarker(bool darker)
   _darker = darker;
 }
 
+bool Led::getDarkerHasChanged()
+{
+  return _darkerHasChanged;
+}
+
 void Led::increaseIntensity()
 {
   _intensity ++;
   if (_intensity == _intensityMax)
     {
       _darker = true;
+      _darkerHasChanged = true;
     }
 }
 
@@ -55,11 +61,13 @@ void Led::decreaseIntensity()
   if (_intensity == _intensityMin)
     {
       _darker = false;
+      _darkerHasChanged = true;
     }
 }
 
 void Led::changeIntensity()
 {
+  _darkerHasChanged = false;
   if (_darker)
     {
       decreaseIntensity();
@@ -76,6 +84,7 @@ void Led::increasePointer()
   if (_pointer == _pointerMax)
     {
       _darker = true;
+      _darkerHasChanged = true;
     }
 }
 
@@ -85,11 +94,13 @@ void Led::decreasePointer()
   if (_pointer == 0)
     {
       _darker = false;
+      _darkerHasChanged = true;
     }
 }
 
 void Led::changePointer()
 {
+  _darkerHasChanged = false;
   if (_darker)
     {
       decreasePointer();

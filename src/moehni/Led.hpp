@@ -14,6 +14,7 @@ private:
   uint8_t _pointer = 0;
   uint8_t _pointerMax = 240;
   bool _darker = true;
+  bool _darkerHasChanged =false;
 public:
   uint8_t getNumber();
   void setNumber(uint8_t);
@@ -23,6 +24,7 @@ public:
   void setPointer(uint8_t);
   bool getDarker();
   void setDarker(bool);
+  bool getDarkerHasChanged();
   void increaseIntensity();
   void decreaseIntensity();
   void changeIntensity();

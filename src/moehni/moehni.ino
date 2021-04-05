@@ -39,10 +39,11 @@ void loop()
     {
       led[i].changePointer();
       led[i].pointer2int();
-      Serial.println(led[i].getNumber());
-      Serial.println(led[i].getIntensity());
-      Serial.println();
-      pwm.setPWM(led[i].getNumber(), 4096 - led[i].getIntensity(), led[i].getIntensity());  
+      if (led[i].getDarkerHasChanged())
+      {
+        speedControl[i].setDuration(random(1,5));
+      }
+      pwm.setPWM(led[i].getNumber(), 0, led[i].getIntensity());  
     }
   }
   while (millis() < old_millis + 1000);
