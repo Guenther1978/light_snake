@@ -1,16 +1,17 @@
-.. light_snake documentation master file, created by
-   sphinx-quickstart on Fri Apr  9 15:45:08 2021.
+.. Light Snake documentation master file, created by
+   sphinx-quickstart on Sun Apr 11 18:28:23 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to light_snake's documentation!
+Welcome to Light Snake's documentation!
 =======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-
+   led.rst
+   speed_control.rst
 
 Indices and tables
 ==================
