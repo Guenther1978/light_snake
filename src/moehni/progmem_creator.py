@@ -2,9 +2,9 @@
 
 import math
 
-size = 240
+size = 256
 max_value = 4095
-offset = 100
+offset = 1000
 expo = math.log(max_value - offset)/(size - 1)
 
 f = open("intensities.h", "w")
