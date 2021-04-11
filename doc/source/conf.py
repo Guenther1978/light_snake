@@ -34,7 +34,7 @@ release = '2.0'
 extensions = ["breathe"
 ]
 
-breathe_projects = {"Light Snake": "/home/beulen/light_snake/doc/xml"}
+breathe_projects = {"Light Snake": "../xml"}
 breathe_default_project = "Light Snake"
 
 # Add any paths that contain templates here, relative to this directory.
