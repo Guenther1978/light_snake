@@ -33,3 +33,6 @@
 
 # Temporary files
 *~
+
+# Breathe build folder
+/doc/build/*
