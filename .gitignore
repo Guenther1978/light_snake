@@ -36,3 +36,6 @@
 
 # Breathe build folder
 /doc/build/*
+
+# Doxygen xml folder
+/doc/xml/*
