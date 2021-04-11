@@ -50,8 +50,7 @@ void Led::increaseIntensity()
   _intensity ++;
   if (_intensity == _intensityMax)
     {
-      _darker = true;
-      _darkerHasChanged = true;
+      changeDarker();
     }
 }
 
@@ -60,8 +59,7 @@ void Led::decreaseIntensity()
   _intensity --;
   if (_intensity == _intensityMin)
     {
-      _darker = false;
-      _darkerHasChanged = true;
+      changeDarker();
     }
 }
 
@@ -83,8 +81,7 @@ void Led::increasePointer()
   _pointer ++;
   if (_pointer == _pointerMax)
     {
-      _darker = true;
-      _darkerHasChanged = true;
+      changeDarker();
     }
 }
 
@@ -93,8 +90,7 @@ void Led::decreasePointer()
   _pointer --;
   if (_pointer == 0)
     {
-      _darker = false;
-      _darkerHasChanged = true;
+      changeDarker();
     }
 }
 
@@ -114,13 +110,18 @@ void Led::changePointer()
 void Led::changeDarker()
 {
   _darker != _darker;
+  _darkerHasChanged = true;
 }
 
 void Led::pointer2int()
 {
   _intensity = pgm_read_word_near(intensities + _pointer);
-  if (_intensity < _intensityMin)
+  if (_intensity <= _intensityMin)
     {
       _intensity = _intensityMin;
+    }
+  if (_intensity >= _intensityMax)
+    {
+      _intensity = _intensityMax;
     }
 }

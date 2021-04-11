@@ -12,11 +12,31 @@ private:
   uint8_t _counter = 0;
   bool _trigger = false;
 public:
+  /**@return the number of the LED*/
   uint8_t getNumber();
+
+  /**@param sets the number of the LED*/
   void setNumber(uint8_t);
+
+  /**@return duration of the LED*/
   uint8_t getDuration();
+
+  /**@param sets duration of the LED
+   *
+   * The duration delays the true state
+   * of _trigger.
+   */
   void setDuration(uint8_t);
+
+  /**@return true if _counter == 0*/
   bool getTrigger();
+
+  /**
+   * @brief decreases _counter
+   *
+   * The method is used to count down the _counter variable,
+   * which delays the true state of the _trigger variable.
+   */
   void count();
 };
 
