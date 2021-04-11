@@ -19,25 +19,25 @@ public:
   /**@return the number of the LED*/
   uint8_t getNumber();
 
-  /**@param sets the number of the LED*/
+  /**@param number*/
   void setNumber(uint8_t);
 
   /**@return the intensity of the LED*/
   uint16_t getIntensity();
 
-  /**@param sets the number of the LED*/
+  /**@param intensity*/
   void setIntensity(uint16_t);
 
   /**@return the pointer to the intensity table*/
   uint8_t getPointer();
 
-  /**@param sets the number of the LED*/  
+  /**@param pointer*/  
   void setPointer(uint8_t);
 
   /**@return the member _darker of the LED*/
   bool getDarker();
 
-  /**@param sets the number of the LED*/
+  /**@param darker*/
   void setDarker(bool);
 
   /**@return the number of the LED*/

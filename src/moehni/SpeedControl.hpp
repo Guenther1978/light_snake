@@ -15,13 +15,13 @@ public:
   /**@return the number of the LED*/
   uint8_t getNumber();
 
-  /**@param sets the number of the LED*/
+  /**@param number*/
   void setNumber(uint8_t);
 
   /**@return duration of the LED*/
   uint8_t getDuration();
 
-  /**@param sets duration of the LED
+  /**@param duration
    *
    * The duration delays the true state
    * of _trigger.
