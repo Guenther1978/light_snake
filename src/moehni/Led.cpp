@@ -40,6 +40,26 @@ void Led::setDarker(bool darker)
   _darker = darker;
 }
 
+bool Led::getWaitAtMinIntensity()
+{
+  return _waitAtMinIntensity;
+}
+
+void Led::setWaitAtMinIntensity(bool waitAtMinIntensity)
+{
+  _waitAtMinIntensity = waitAtMinIntesity;
+}
+
+bool Led::getWaitAtMaxIntensity()
+{
+  return _waitAtMaxIntensity;
+}
+
+void Led::setWaitAtMaxIntensity(bool WaitAtMaxIntensity)
+{
+  _waitAtMaxIntensity = waitAtMaxIntensity;
+}
+
 bool Led::getDarkerHasChanged()
 {
   return _darkerHasChanged;

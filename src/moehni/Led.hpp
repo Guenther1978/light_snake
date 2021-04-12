@@ -14,7 +14,9 @@ private:
   uint8_t _pointer = 0;
   uint8_t _pointerMax = 255;
   bool _darker = true;
-  bool _darkerHasChanged =false;
+  bool _darkerHasChanged = false;
+  bool _waitAtMinIntensity = false;
+  bool _waitAtMaxIntensity = true;
 public:
   /**@return the number of the LED*/
   uint8_t getNumber();
@@ -39,6 +41,18 @@ public:
 
   /**@param darker*/
   void setDarker(bool);
+
+  /**@return the member _darker of the LED*/
+  bool getWaitAtMinIntensity();
+
+  /**@param darker*/
+  void setWaitAtMinIntensity(bool);
+
+  /**@return the member _darker of the LED*/
+  bool getWaitAtMaxIntesity();
+
+  /**@param darker*/
+  void setWaitAtMaxIntensity(bool);
 
   /**@return the number of the LED*/
   bool getDarkerHasChanged();
