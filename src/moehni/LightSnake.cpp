@@ -26,10 +26,11 @@ void LightSnake::loop()
       led[i].pointer2int();
       if (led[i].getDarkerHasChanged())
       {
-        led[i].setSpeedControlDuration(random(1,DURATION_MAX));
+        led[i].setSpeedControlDuration(random(1, DURATION_MAX));
       }
       pwm.setPWM(led[i].getNumber(), 0, led[i].getIntensity());  
     }
   }
-  while (millis() < old_millis + 1000);
+  while (millis() < (old_millis + DELAY_TIME));
+  old_millis = millis();
 }
