@@ -1,14 +1,5 @@
-#include <Wire.h>
-#include <Adafruit_PWMServoDriver.h>
-#include "Led.hpp"
-#include "SpeedControl.hpp"
-/*
-#define INTENSITY_MIN 100
-#define INTENSITY_MAX 4095
-#define DURATION_MIN 1
-#define DURATION_MAX 4
-*/
-#define NUMBER_OF_LEDS 14
+#include "LightSnake.hpp"
+
 
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
 unsigned long old_millis;
