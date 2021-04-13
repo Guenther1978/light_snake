@@ -27,40 +27,40 @@ public:
   /**@return the number of the LED*/
   uint8_t getNumber();
 
-  /**@param number*/
+  /**@param number of the LED*/
   void setNumber(uint8_t);
 
-  /**@return the intensity of the LED*/
+  /**@return intensity of the LED*/
   uint16_t getIntensity();
 
-  /**@param intensity*/
+  /**@param intensity of the LED*/
   void setIntensity(uint16_t);
 
-  /**@return the pointer to the intensity table*/
+  /**@return pointer to the intensity table*/
   uint8_t getPointer();
 
-  /**@param pointer*/  
+  /**@param pointer to the intensities*/  
   void setPointer(uint8_t);
 
-  /**@return the member _darker of the LED*/
+  /**@return darker of the LED*/
   bool getDarker();
 
-  /**@param darker*/
+  /**@param darker if the brieghtness of the LED decreases*/
   void setDarker(bool);
 
-  /**@return the member _darker of the LED*/
+  /**@return waitAtMinIntensity of the LED*/
   bool getWaitAtMinIntensity();
 
-  /**@param setWaitAtMinIntensity*/
+  /**@param setWaitAtMinIntensity this LED waits at its ninimal brightness*/
   void setWaitAtMinIntensity(bool);
 
-  /**@return the member _darker of the LED*/
+  /**@return waitAtMaxIntensity this LED waits at its ninimal brightness*/
   bool getWaitAtMaxIntensity();
 
-  /**@param setWaitAtMaxIntensity*/
+  /**@param setWaitAtMaxIntensity this LED waits at its naximal brightness*/
   void setWaitAtMaxIntensity(bool);
 
-  /**@return */
+  /**@return darkerHasChanged this LED waits at its naximal brightness*/
   bool getDarkerHasChanged();
   
   /**Increases the intensity.

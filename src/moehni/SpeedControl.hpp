@@ -11,33 +11,32 @@ private:
   uint8_t _max_duration = 5;
   uint8_t _counter = 0;
 public:
-  /**@return the value of the counter*/
+  /**@return counter*/
   uint8_t getCounter();
 
-  /**@param counter*/
+  /**@param counter of the LED*/
   void setCounter(uint8_t);
 
-  /**@return the number of the LED*/
+  /**@return number of the LED*/
   uint8_t getNumber();
 
-  /**@param number*/
+  /**@param number of the LED*/
   void setNumber(uint8_t);
 
-  /**@return duration of the LED*/
+  /**@return duration of the entensity*/
   uint8_t getDuration();
 
-  /**@param duration
+  /**@param duration of the intensity
    *
-   * The duration delays the true state
-   * of _trigger.
+   * The duration specifies the time at an intensity
    */
   void setDuration(uint8_t);
 
   /**
-   * @brief decreases _counter
+   * @return (counter == 0)
    *
    * The method decreases the counter, if the counter
-   * has the value zero true is returned.
+   * has the value zero, true is returned.
    */
   bool count();
 };
