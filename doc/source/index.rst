@@ -10,6 +10,7 @@ Welcome to Light Snake's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   light_snake.rst
    led.rst
    speed_control.rst
 
