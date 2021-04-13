@@ -9,19 +9,21 @@
 
 #define NUMBER_OF_LEDS 14
 #define DALAY_TIME 100;
+#define DURATION_MAX 3
 
 class LightSnake
 {
 private:
   Led led[NUMBER_OF_LEDS];
   Adafruit_PWMServoDriver pwm;
+  unsigned long old_millis;
 public:
   /**@brief This function initializes the LightSnake class.
    *
    * The class contains one instance of the class
    * Adafruit_PWMServoDriver and an array of the
-   * class Led. The random generattor will be
-   * initialiyed, too.
+   * class Led. The random generator will be
+   * initialized, too.
    */
   void setup();
   /**@brief This function repeats teh updates of

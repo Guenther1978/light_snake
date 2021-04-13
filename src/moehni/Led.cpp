@@ -47,7 +47,7 @@ bool Led::getWaitAtMinIntensity()
 
 void Led::setWaitAtMinIntensity(bool waitAtMinIntensity)
 {
-  _waitAtMinIntensity = waitAtMinIntesity;
+  _waitAtMinIntensity = waitAtMinIntensity;
 }
 
 bool Led::getWaitAtMaxIntensity()
@@ -55,7 +55,7 @@ bool Led::getWaitAtMaxIntensity()
   return _waitAtMaxIntensity;
 }
 
-void Led::setWaitAtMaxIntensity(bool WaitAtMaxIntensity)
+void Led::setWaitAtMaxIntensity(bool waitAtMaxIntensity)
 {
   _waitAtMaxIntensity = waitAtMaxIntensity;
 }
@@ -70,7 +70,10 @@ void Led::increaseIntensity()
   _intensity ++;
   if (_intensity == _intensityMax)
     {
-      changeDarker();
+      _intensityAtMin = false;
+      _intensityAtMax = true;
+      _darker = true;
+      _darkerHasChanged = true;
     }
 }
 
@@ -79,7 +82,10 @@ void Led::decreaseIntensity()
   _intensity --;
   if (_intensity == _intensityMin)
     {
-      changeDarker();
+      _intensityAtMin = true;
+      _intensityAtMax = false;
+      _darker = true;
+      _darkerHasChanged = true;
     }
 }
 
@@ -99,9 +105,12 @@ void Led::changeIntensity()
 void Led::increasePointer()
 {
   _pointer ++;
-  if (_pointer == _pointerMax)
+  if (_pointer == _arraySize)
     {
-      changeDarker();
+      _intensityAtMin = false;
+      _intensityAtMax = true;
+      _darker = true;
+      _darkerHasChanged = true;
     }
 }
 
@@ -110,7 +119,10 @@ void Led::decreasePointer()
   _pointer --;
   if (_pointer == 0)
     {
-      changeDarker();
+      _intensityAtMin = true;
+      _intensityAtMax = false;      
+      _darker = false;
+      _darkerHasChanged = true;
     }
 }
 
@@ -127,12 +139,6 @@ void Led::changePointer()
     }
 }
 
-void Led::changeDarker()
-{
-  _darker != _darker;
-  _darkerHasChanged = true;
-}
-
 void Led::pointer2int()
 {
   _intensity = pgm_read_word_near(intensities + _pointer);
@@ -145,3 +151,41 @@ void Led::pointer2int()
       _intensity = _intensityMax;
     }
 }
+
+bool Led::letSpeedControlCount()
+{
+  return speedControl.count();
+}
+
+void Led::setSpeedControlDuration(uint8_t duration)
+{
+  speedControl.setDuration(duration);
+}
+
+void Led::setSpeedControlCounter(uint8_t counter)
+{
+  speedControl.setCounter(counter);
+}
+/*
+void Led::update()
+{
+  speedControl.count();
+  if (speedControl.getTrigger())
+    {
+      changePointer();
+      pointer2int();
+      if (_darkerHasChanged)
+        {
+          speedControl.setDuration(random(1, 3));
+          if (_intensityAtMax && _waitAtMaxIntensity)
+            {
+              speedControl.setCounter(_cyclesAtMax);
+            }
+          if (_intensityAtMin && _waitAtMinIntensity)
+            {
+              speedControl.setCounter(_cyclesAtMax);
+            }
+        }
+    }
+}
+*/
