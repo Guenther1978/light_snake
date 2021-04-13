@@ -105,7 +105,7 @@ void Led::changeIntensity()
 void Led::increasePointer()
 {
   _pointer ++;
-  if (_pointer == _arraySize)
+  if (_pointer == _pointerMax)
     {
       _intensityAtMin = false;
       _intensityAtMax = true;

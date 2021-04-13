@@ -14,15 +14,15 @@ private:
   uint16_t _intensityMin = 1000;
   uint16_t _intensityMax = 4095;
   uint8_t _pointer = 0;
-  uint8_t _arraySize = 255;
+  uint8_t _pointerMax = 255;
   bool _darker = true;
   bool _darkerHasChanged = false;  
   bool _intensityAtMax = false;
   bool _intensityAtMin = false;
   bool _waitAtMinIntensity = false;
   bool _waitAtMaxIntensity = true;
-  uint8_t _cyclesAtMin = 10;
-  uint8_t _cyclesAtMax = 10;
+  uint8_t _cyclesAtMin = 5;
+  uint8_t _cyclesAtMax = 5;
 public:
   /**@return the number of the LED*/
   uint8_t getNumber();
