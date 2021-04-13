@@ -34,6 +34,9 @@
 # Temporary files
 *~
 
+# Temporary files created by Emacs
+*#
+
 # Breathe build folder
 /doc/build/*
 
