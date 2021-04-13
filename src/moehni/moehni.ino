@@ -6,7 +6,7 @@ void setup()
 {
   lightSnake.setup();
 }
- 
+
 void loop()
 {
   lightSnake.loop();
