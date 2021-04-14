@@ -21,26 +21,41 @@ private:
   bool _intensityAtMin = false;
   bool _waitAtMinIntensity = false;
   bool _waitAtMaxIntensity = true;
-  uint8_t _cyclesAtMin = 5;
-  uint8_t _cyclesAtMax = 5;
+  uint8_t _cyclesAtMinIntensity = 20;
+  uint8_t _cyclesAtMaxIntensity = 20;
 public:
+  ///////////////////////
+  // get ans set methods
+  ///////////////////////
+
+  // _number
+
   /**@return the number of the LED*/
   uint8_t getNumber();
 
   /**@param number of the LED*/
   void setNumber(uint8_t);
 
+  
+  // _intensity
+  
   /**@return intensity of the LED*/
   uint16_t getIntensity();
 
   /**@param intensity of the LED*/
   void setIntensity(uint16_t);
 
+  
+  // _pointer
+  
   /**@return pointer to the intensity table*/
   uint8_t getPointer();
 
   /**@param pointer to the intensities*/  
   void setPointer(uint8_t);
+
+
+  // _darker
 
   /**@return darker of the LED*/
   bool getDarker();
@@ -48,23 +63,54 @@ public:
   /**@param darker if the brightness of the LED decreases*/
   void setDarker(bool);
 
-  /**@return counter*/
+  /**@brief inverts darker*/
   void invertDarker();
 
-  /**@return waitAtMinIntensity of the LED*/
+
+  // _waitAtM??Intensity
+
+  /**@return waitAtMinIntensity*/
   bool getWaitAtMinIntensity();
 
-  /**@param setWaitAtMinIntensity this LED waits at its ninimal brightness*/
+  /**@param waitAtMinIntensity this LED waits at its ninimal brightness*/
   void setWaitAtMinIntensity(bool);
 
-  /**@return waitAtMaxIntensity this LED waits at its ninimal brightness*/
+  /**@return waitAtMaxIntensity*/
   bool getWaitAtMaxIntensity();
 
-  /**@param setWaitAtMaxIntensity this LED waits at its naximal brightness*/
+  /**@param WaitAtMaxIntensity this LED waits at its naximal brightness*/
   void setWaitAtMaxIntensity(bool);
 
-  /**@return darkerHasChanged this LED waits at its naximal brightness*/
+  
+  // _cyclesAtM??Intensity
+  
+  /**@return cyclesAtMinIntensity of the LED*/
+  uint8_t getCyclesAtMinIntensity();
+
+  /**@param cyclesAtMinIntensity this LED waits this cycles at its ninimal brightness*/
+  void setCyclesAtMinIntensity(uint8_t);
+
+  /**@return cyclesAtMaxIntensity this LED waits at its ninimal brightness*/
+  uint8_t getCyclesAtMaxIntensity();
+
+  /**@param cyclesAtMaxIntensity this LED waits this cycles at its maximal brightness*/
+  void setCyclesAtMaxIntensity(uint8_t);
+
+
+  // _darkerHasChanged, _intensityAtMax, intensityAtMin
+  
+  /**@return _darkerHasChanged*/
   bool getDarkerHasChanged();
+
+  /**@return _intensityAtMin*/
+  bool getIntensityAtMin();
+
+  /**@return _intensityAtMax*/
+  bool getIntensityAtMax();
+  
+  //////////////////////////////////////
+  // methods dealing with the intensity
+  //////////////////////////////////////
   
   /**Increases the intensity.
    *
@@ -87,6 +133,11 @@ public:
    */
   void changeIntensity();
 
+
+  ///////////////////////////////////////////////////////
+  // methods dealing with the pointer to thw intensities
+  ///////////////////////////////////////////////////////
+  
   /**Increases the pointer to the intensities.
    *
    * If the new value of the pointer is equal
@@ -116,6 +167,11 @@ public:
    * script 'progmen_creator.py'.
    */
   void pointer2int();
+
+  
+  ////////////////////////////////////////////////
+  // methods dealing with the class SpeedControl
+  ////////////////////////////////////////////////
 
   /**@brief Call counter method of class SpeedControl
    *

@@ -1,5 +1,11 @@
 #include "Led.hpp"
 
+///////////////////////
+// get ans set methods
+///////////////////////
+
+// _number
+
 uint8_t Led::getNumber()
 {
   return _number;
@@ -9,6 +15,9 @@ void Led::setNumber(uint8_t number)
 {
   _number = number;
 }
+
+
+// _intensity
 
 uint16_t Led::getIntensity()
 {
@@ -20,6 +29,9 @@ void Led::setIntensity(uint16_t intensity)
   _intensity = intensity;
 }
 
+
+// _pointer
+
 uint8_t Led::getPointer()
 {
   return _pointer;
@@ -29,6 +41,9 @@ void Led::setPointer(uint8_t pointer)
 {
   _pointer = pointer;
 }
+
+
+// _darker
 
 bool Led::getDarker()
 {
@@ -44,6 +59,9 @@ void Led::invertDarker()
 {
   _darker != _darker;
 }
+
+
+// _waitAtM??Intensity
 
 bool Led::getWaitAtMinIntensity()
 {
@@ -65,10 +83,51 @@ void Led::setWaitAtMaxIntensity(bool waitAtMaxIntensity)
   _waitAtMaxIntensity = waitAtMaxIntensity;
 }
 
+
+// _cyclesAtM??Intensity
+
+uint8_t Led::getCyclesAtMinIntensity()
+{
+  return _cyclesAtMinIntensity;
+}
+
+void Led::setCyclesAtMinIntensity(uint8_t cyclesAtMinIntensity)
+{
+  _cyclesAtMinIntensity = cyclesAtMinIntensity;
+}
+
+uint8_t Led::getCyclesAtMaxIntensity()
+{
+  return _cyclesAtMaxIntensity;
+}
+
+void Led::setCyclesAtMaxIntensity(uint8_t cyclesAtMaxIntensity)
+{
+  _cyclesAtMaxIntensity = cyclesAtMaxIntensity;
+}
+
+
+// _darkerHasChanged, _intensityAtMax, intensityAtMin
+
 bool Led::getDarkerHasChanged()
 {
   return _darkerHasChanged;
 }
+
+bool Led::getIntensityAtMin()
+{
+  return _intensityAtMin;
+}
+
+bool Led::getIntensityAtMax()
+{
+  return _intensityAtMax;
+}
+
+
+//////////////////////////////////////
+// methods dealing with the intensity
+//////////////////////////////////////
 
 void Led::increaseIntensity()
 {
@@ -106,6 +165,11 @@ void Led::changeIntensity()
       increaseIntensity();
     }
 }
+
+
+///////////////////////////////////////////////////////
+// methods dealing with the pointer to the intensities
+///////////////////////////////////////////////////////
 
 void Led::increasePointer()
 {
@@ -157,6 +221,11 @@ void Led::pointer2int()
     }
 }
 
+
+////////////////////////////////////////////////
+// methods dealing with the class SpeedControl
+////////////////////////////////////////////////
+
 bool Led::letSpeedControlCount()
 {
   return speedControl.count();
@@ -181,27 +250,3 @@ uint8_t Led::getSpeedControlCounter()
 {
   return speedControl.getCounter();
 }
-
-/*
-void Led::update()
-{
-  speedControl.count();
-  if (speedControl.getTrigger())
-    {
-      changePointer();
-      pointer2int();
-      if (_darkerHasChanged)
-        {
-          speedControl.setDuration(random(1, 3));
-          if (_intensityAtMax && _waitAtMaxIntensity)
-            {
-              speedControl.setCounter(_cyclesAtMax);
-            }
-          if (_intensityAtMin && _waitAtMinIntensity)
-            {
-              speedControl.setCounter(_cyclesAtMax);
-            }
-        }
-    }
-}
-*/

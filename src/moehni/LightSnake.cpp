@@ -27,6 +27,14 @@ void LightSnake::loop()
       if (led[i].getDarkerHasChanged())
       {
         led[i].setSpeedControlDuration(random(DURATION_MAX) + 1);
+        if (led[i].getIntensityAtMax() && led[i].getWaitAtMaxIntensity())
+          {
+            led[i].setSpeedControlCounter(led[i].getCyclesAtMaxIntensity());
+          }
+          else if (led[i].getIntensityAtMin() && led[i].getWaitAtMinIntensity())
+          {
+            led[i].setSpeedControlCounter(led[i].getCyclesAtMinIntensity());
+          }
       }
       pwm.setPWM(led[i].getNumber(), 0, led[i].getIntensity());
     }
