@@ -45,7 +45,7 @@ public:
   /**@return darker of the LED*/
   bool getDarker();
 
-  /**@param darker if the brieghtness of the LED decreases*/
+  /**@param darker if the brightness of the LED decreases*/
   void setDarker(bool);
 
   /**@return waitAtMinIntensity of the LED*/
@@ -122,12 +122,18 @@ public:
    */
   bool letSpeedControlCount();
 
-  /**Sets a duration property of the class SpeedControl
+  /**@param duration time at one intensity (property of the class SpeedControl)
    *
    * This variable initializes the property counter.
    */
   void setSpeedControlDuration(uint8_t);
 
+  /**@return duration (the time at one intensity, property of the class SpeedControl)
+   *
+   * The return value is the content of the property counter.
+   */
+  uint8_t getSpeedControlDuration();
+  
   /**@brief counter
    *
    * If the a longer duration is wanted, the counter can be set to

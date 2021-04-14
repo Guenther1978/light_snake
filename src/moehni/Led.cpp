@@ -162,6 +162,11 @@ void Led::setSpeedControlDuration(uint8_t duration)
   speedControl.setDuration(duration);
 }
 
+uint8_t Led::getSpeedControlDuration()
+{
+  return speedControl.getDuration();
+}
+
 void Led::setSpeedControlCounter(uint8_t counter)
 {
   speedControl.setCounter(counter);
