@@ -40,6 +40,11 @@ void Led::setDarker(bool darker)
   _darker = darker;
 }
 
+void Led::invertDarker()
+{
+  _darker != _darker;
+}
+
 bool Led::getWaitAtMinIntensity()
 {
   return _waitAtMinIntensity;
@@ -171,6 +176,12 @@ void Led::setSpeedControlCounter(uint8_t counter)
 {
   speedControl.setCounter(counter);
 }
+
+uint8_t Led::getSpeedControlCounter()
+{
+  return speedControl.getCounter();
+}
+
 /*
 void Led::update()
 {
