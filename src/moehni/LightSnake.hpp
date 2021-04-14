@@ -8,7 +8,7 @@
 #include "SpeedControl.hpp"
 
 #define NUMBER_OF_LEDS 14
-#define DALAY_TIME 100
+#define DELAY_TIME 100
 #define DURATION_MAX 3
 
 class LightSnake
