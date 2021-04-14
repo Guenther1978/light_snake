@@ -26,7 +26,7 @@ public:
    * initialized, too.
    */
   void setup();
-  /**@brief This function repeats teh updates of
+  /**@brief This function repeats the updates of
    * the intensites of the leds.
    *
    * Every element of the Led Class is called. Their
@@ -35,6 +35,6 @@ public:
    * intensities are send via the I2C bus to the PCA9685.
    */
   void loop();
-  };
+};
 
 #endif
