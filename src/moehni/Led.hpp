@@ -21,8 +21,8 @@ private:
   bool _intensityAtMin = false;
   bool _waitAtMinIntensity = false;
   bool _waitAtMaxIntensity = true;
-  uint8_t _cyclesAtMinIntensity = 20;
-  uint8_t _cyclesAtMaxIntensity = 20;
+  uint8_t _cyclesAtMinIntensity = 33;
+  uint8_t _cyclesAtMaxIntensity = 33;
 public:
   ///////////////////////
   // get ans set methods
