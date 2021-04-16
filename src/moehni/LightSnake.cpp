@@ -43,23 +43,132 @@ void LightSnake::loop()
   old_millis = millis();
   if (Serial.available())
     {
-      if (Serial.read() == 'd')
+      incomingByte = Serial.read();
+      switch (incomingByte)
         {
-          Serial.println();
-          Serial.println("number\tintensity\tdarker\tduration\tcounter");
-          for(int i = 0; i < NUMBER_OF_LEDS; i++)
-            {
-              Serial.print(led[i].getNumber());
-              Serial.print("\t");
-              Serial.print(led[i].getIntensity());
-              Serial.print("\t\t");
-              Serial.print(led[i].getDarker());
-              Serial.print("\t");
-              Serial.print(led[i].getSpeedControlDuration());
-              Serial.print("\t\t");
-              Serial.print(led[i].getSpeedControlCounter());
-              Serial.println();
-            }
+        case 'h':
+        case 'H':
+          help();
+          break;
+        case 'i':
+        case 'I':
+          info();
+          break;
+        case 'j':
+        case 'J':
+          testAllLEDs();
+          break;
+        case 'k':
+        case 'K':
+          getLEDNumber();
+          break;
+        default:
+          break;
         }
+    }
+}
+
+void LightSnake::help()
+{
+  Serial.println();
+  Serial.println("h: Help");
+  Serial.println("i: Info");
+  Serial.println("j: Test all LEDs");
+  Serial.println("k: Test a single LED");
+  Serial.println("x: continue after testing single LEDs");
+}
+
+void LightSnake::info()
+{  
+  Serial.println();
+  Serial.println("number\tintensity\tdarker\tduration\tcounter");
+  for(int i = 0; i < NUMBER_OF_LEDS; i++)
+    {
+      Serial.print(led[i].getNumber());
+      Serial.print("\t");
+      Serial.print(led[i].getIntensity());
+      Serial.print("\t\t");
+      Serial.print(led[i].getDarker());
+      Serial.print("\t");
+      Serial.print(led[i].getSpeedControlDuration());
+      Serial.print("\t\t");
+      Serial.println(led[i].getSpeedControlCounter());
+    }
+  Serial.println();
+}
+
+void LightSnake::clearAllLEDs()
+{
+  for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)
+    {
+      pwm.setPWM(i, 0, 0);
+    }
+  delay(DELAY_TEST);
+}
+
+void LightSnake::getLEDNumber()
+{
+  byte incomingNumber = 'g';
+  uint8_t number = 14;
+
+  clearAllLEDs();
+  Serial.println();
+  Serial.println("Enter a number");
+  
+  do
+    {
+      while (!Serial.available());
+      incomingNumber = Serial.read();
+      switch (incomingNumber)
+        {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5': 
+        case '6': 
+        case '7':
+        case '8':
+        case '9':
+          number = incomingNumber - 48;
+          break;
+        case 'a':
+        case 'A':
+          number = 10;
+          break;
+        case 'b':
+        case 'B':
+          number = 11;
+          break;
+        case 'c':
+        case 'C':
+          number = 12;
+          break;
+        case 'd': 
+        case 'D':
+          number = 13;
+          break;
+        default:
+          break;
+        }
+      Serial.println(number);
+      testLED(number);
+    }while ((incomingNumber != 'x') && (incomingNumber != 'X'));
+}
+
+void LightSnake::testLED(uint8_t address)
+{
+  pwm.setPWM(address, 0, FULL_INTENSITY);
+  delay(DELAY_TEST);
+  pwm.setPWM(address,0 ,0);
+  delay(DELAY_TEST);
+}
+
+void LightSnake::testAllLEDs()
+{
+  for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)
+    {
+      testLED(i);
     }
 }
