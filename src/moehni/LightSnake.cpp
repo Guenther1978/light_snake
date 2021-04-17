@@ -136,7 +136,7 @@ void LightSnake::clearAllLEDs()
 int8_t LightSnake::getNumber()
 {
   byte incomingNumber = 'g';
-  int8_t number = -1;
+  int8_t number = -2;
 
   Serial.println();
   Serial.println("Enter a number");
@@ -182,9 +182,12 @@ int8_t LightSnake::getNumber()
     case 'F':
       number = 15;
       break;
+    case 'x':
+    case 'X':
+      number = -1;
     default:
       Serial.println("Default!");
-      number = -1;
+      number = -2;
       break;
     }
   
@@ -213,6 +216,8 @@ void LightSnake::getLEDNumber()
 
 void LightSnake::testLED(uint8_t address)
 {
+  Serial.print("Test of LED ");
+  Serial.println(address);
   pwm.setPWM(address, 0, FULL_INTENSITY);
   delay(DELAY_TEST);
   pwm.setPWM(address,0 ,0);
