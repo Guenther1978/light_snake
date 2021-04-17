@@ -48,19 +48,26 @@ public:
   /**@brief This method prints an info
    *
    * The Serial Monitor of the Arduino IDE, PuTTY or picocom
-   * can be used.\
-   * H: Help\
-   * I: Info\
+   * can be used.
+   *
+   * H: Help
+   *
+   * I: Info
+   * 
    * J: Test all LEDs
+   *
    * K: Test a single LED
+   *
    * X: Continue agter testing single LEDs
    */
   void help();
 
   /**@brief This methode prints the info of all Leds
    *
-   * Number: number of the LED\
-   * Intensity: intensity of the LED\
+   * Number: number of the LED
+   *
+   * Intensity: intensity of the LED
+   *
    * Darker: Is the intesity increasing or decreasing?\
    * Duration: cycles at an intensity\
    * Counter: vakue of the counter, counts down from
