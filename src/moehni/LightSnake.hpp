@@ -8,19 +8,43 @@
 #include "SpeedControl.hpp"
 
 #define NUMBER_OF_LEDS 14
-#define DELAY_TIME 30
+#define DELAY_TIME 20
 #define DURATION_MAX 3
 #define FULL_INTENSITY 4095
 #define DELAY_TEST 1000
+#define ASCII_OFFSET 48
+#define TIMEOUT 10000
 
 class LightSnake
 {
 private:
   Led led[NUMBER_OF_LEDS];
   Adafruit_PWMServoDriver pwm;
-  unsigned long old_millis;
+  unsigned long cycleTime;
+  unsigned long loopDuration;
+  unsigned long oldMillis;
+  bool outputOfLoopDuration;
   byte incomingByte;
 public:
+  /**@brief This function initializes the LightSnake class.
+   *
+   * The class contains one instance of the class
+   * Adafruit_PWMServoDriver and an array of the
+   * class Led. The random generator will be
+   * initialized, too.
+   */  
+  void setup();
+  
+  /**@brief This function repeats the updates of
+   * the intensites of the leds.
+   *
+   * Every element of the Led Class is called. Their
+   * intensities are updated and at the min or max value
+   * a new duration of the speed is evaluated. The new
+   * intensities are send via the I2C bus to the PCA9685.
+   */
+  void loop();
+
   /**@brief This method prints an info
    *
    * The Serial Monitor of the Arduino IDE, PuTTY or picocom
@@ -51,6 +75,13 @@ public:
    */
   void clearAllLEDs();
 
+  /**@return number
+   *
+   * This method is used by getting the number of a
+   * LED and by getting the new duration.
+   */
+  int8_t getNumber();
+  
   /**@brief Gets he number of the LED to test.
    *
    * Get the number of the LED to test.
@@ -59,7 +90,7 @@ public:
    * X will delete this loop.
    */
   void getLEDNumber();
-    
+  
   /**@brief This method tests the specified LED.
    *
    * First all LED are turned off. After waiting for a second,
@@ -78,29 +109,31 @@ public:
    * every LED is turned on for a second and then turned off.
    * After waiting for a second, the next LED is turnde on and
    * off. So the hardware
-   * can be tested. Very helpful at startup or in finding bugs.
-   * This method can be started by sending a 't' to the USART.
+   * can be tested.
    */
   void testAllLEDs();
-  
-  /**@brief This function initializes the LightSnake class.
+
+  /**@brief This method handels the output of the loop time.
    *
-   * The class contains one instance of the class
-   * Adafruit_PWMServoDriver and an array of the
-   * class Led. The random generator will be
-   * initialized, too.
+   * The output of the looptime, the duration of an cycle,
+   * can be enabled or disabled. Every time when this method
+   * is called, the corresponding boolean varialble is inverted.
    */
-  
-  void setup();
-  /**@brief This function repeats the updates of
-   * the intensites of the leds.
+  void invertOutputOfLoopDuration();
+
+  /**@brief This method sets a new duration time for the loop.
    *
-   * Every element of the Led Class is called. Their
-   * intensities are updated and at the min or max value
-   * a new duration of the speed is evaluated. The new
-   * intensities are send via the I2C bus to the PCA9685.
+   * The time sets the duration for the loop. If this value is
+   * to small, the function will not wait and start immediately
+   * with the next cycle.\
+   * After each cycle the methods waits till the duration of
+   * a cycle is over. A loop duration can be set with a
+   * char. This character represent a hexadecimal digit.\
+   * Hexadecimal number are used:\
+   * 0 1 2 3 4 5 6 7 8 9 A B C D E F\
+   * The new duration time is this digit multiplied by 10 ms.
    */
-  void loop();
+  void changeLoopDuration();
 };
 
 #endif

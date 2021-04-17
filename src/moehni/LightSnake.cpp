@@ -10,10 +10,15 @@ void LightSnake::setup()
     led[i].setNumber(i);
   }
 
-  old_millis = millis();
+  oldMillis = millis();
+  cycleTime = DELAY_TIME;
+  outputOfLoopDuration = false;
+
   randomSeed(analogRead(0));
+  Serial.setTimeout(TIMEOUT);
   Serial.begin(9600);
-  Serial.print("Setup completed");
+  while (!Serial);
+  Serial.println("Setup completed");
 }
 
 void LightSnake::loop()
@@ -39,8 +44,14 @@ void LightSnake::loop()
       pwm.setPWM(led[i].getNumber(), 0, led[i].getIntensity());
     }
   }
-  while (millis() < (old_millis + DELAY_TIME));
-  old_millis = millis();
+  loopDuration = millis() - oldMillis;
+  if (outputOfLoopDuration)
+    {
+      Serial.print(loopDuration);
+      Serial.print(", ");
+    }
+  while (millis() < (oldMillis + cycleTime));
+  oldMillis = millis();
   if (Serial.available())
     {
       incomingByte = Serial.read();
@@ -62,6 +73,14 @@ void LightSnake::loop()
         case 'K':
           getLEDNumber();
           break;
+        case 'l':
+        case 'L':
+          invertOutputOfLoopDuration();
+          break;
+        case 'm':
+        case 'M':
+          changeLoopDuration();
+          break;
         default:
           break;
         }
@@ -76,6 +95,9 @@ void LightSnake::help()
   Serial.println("j: Test all LEDs");
   Serial.println("k: Test a single LED");
   Serial.println("x: continue after testing single LEDs");
+  Serial.println("l: enable and disable output of the loop time");
+  Serial.println("m: Change the duration of the loop");
+  Serial.println();
 }
 
 void LightSnake::info()
@@ -95,6 +117,11 @@ void LightSnake::info()
       Serial.println(led[i].getSpeedControlCounter());
     }
   Serial.println();
+  Serial.print("loop duration / ms:\t");
+  Serial.println(loopDuration);
+  Serial.print("cycle time / ms:\t");
+  Serial.println(cycleTime);
+  Serial.println();
 }
 
 void LightSnake::clearAllLEDs()
@@ -106,55 +133,82 @@ void LightSnake::clearAllLEDs()
   delay(DELAY_TEST);
 }
 
-void LightSnake::getLEDNumber()
+int8_t LightSnake::getNumber()
 {
   byte incomingNumber = 'g';
-  uint8_t number = 14;
+  int8_t number = -1;
 
-  clearAllLEDs();
   Serial.println();
   Serial.println("Enter a number");
+
+  while (Serial.available() <= 0);
+  incomingNumber = Serial.read();
+  
+  switch (incomingNumber)
+    {
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5': 
+    case '6': 
+    case '7':
+    case '8':
+    case '9':
+      number = incomingNumber - ASCII_OFFSET;
+      break;
+    case 'a':
+    case 'A':
+      number = 10;
+      break;
+    case 'b':
+    case 'B':
+      number = 11;
+      break;
+    case 'c':
+    case 'C':
+      number = 12;
+      break;
+    case 'd': 
+    case 'D':
+      number = 13;
+      break;
+    case 'e':
+    case 'E':
+      number = 14;
+      break;
+    case 'f':
+    case 'F':
+      number = 15;
+      break;
+    default:
+      Serial.println("Default!");
+      number = -1;
+      break;
+    }
+  
+  Serial.println(number);
+  return number;
+}
+  
+void LightSnake::getLEDNumber()
+{
+  int8_t number = -1;
+  bool numberInCorrectRange = false;
+
+  clearAllLEDs();
   
   do
     {
-      while (!Serial.available());
-      incomingNumber = Serial.read();
-      switch (incomingNumber)
+      number = getNumber();
+      numberInCorrectRange =  ((number >= 0) && (number < NUMBER_OF_LEDS));
+      if (numberInCorrectRange)
         {
-        case '0':
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5': 
-        case '6': 
-        case '7':
-        case '8':
-        case '9':
-          number = incomingNumber - 48;
-          break;
-        case 'a':
-        case 'A':
-          number = 10;
-          break;
-        case 'b':
-        case 'B':
-          number = 11;
-          break;
-        case 'c':
-        case 'C':
-          number = 12;
-          break;
-        case 'd': 
-        case 'D':
-          number = 13;
-          break;
-        default:
-          break;
+          Serial.println(number);
+          testLED(number);
         }
-      Serial.println(number);
-      testLED(number);
-    }while ((incomingNumber != 'x') && (incomingNumber != 'X'));
+    }while (numberInCorrectRange);
 }
 
 void LightSnake::testLED(uint8_t address)
@@ -170,5 +224,27 @@ void LightSnake::testAllLEDs()
   for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)
     {
       testLED(i);
+    }
+}
+
+void LightSnake::invertOutputOfLoopDuration()
+{
+  outputOfLoopDuration = !outputOfLoopDuration;
+  if (outputOfLoopDuration)
+    {
+      Serial.println("Output of Loop Duration enabled.");
+    }
+  else
+    {
+      Serial.println("Output of Loop Duration disabled.");
+    }
+}
+
+void LightSnake::changeLoopDuration()
+{
+  int8_t newCycleTime = getNumber();
+  if (newCycleTime >= 0)
+    {
+      cycleTime = (unsigned long)newCycleTime;
     }
 }
