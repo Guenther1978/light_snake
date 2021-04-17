@@ -141,56 +141,58 @@ int8_t LightSnake::getNumber()
   Serial.println();
   Serial.println("Enter a number");
 
-  while (Serial.available() <= 0);
-  incomingNumber = Serial.read();
-  
-  switch (incomingNumber)
+  do
     {
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5': 
-    case '6': 
-    case '7':
-    case '8':
-    case '9':
-      number = incomingNumber - ASCII_OFFSET;
-      break;
-    case 'a':
-    case 'A':
-      number = 10;
-      break;
-    case 'b':
-    case 'B':
-      number = 11;
-      break;
-    case 'c':
-    case 'C':
-      number = 12;
-      break;
-    case 'd': 
-    case 'D':
-      number = 13;
-      break;
-    case 'e':
-    case 'E':
-      number = 14;
-      break;
-    case 'f':
-    case 'F':
-      number = 15;
-      break;
-    case 'x':
-    case 'X':
-      number = -1;
-    default:
-      Serial.println("Default!");
-      number = -2;
-      break;
-    }
-  
+      while (Serial.available() <= 0);
+      incomingNumber = Serial.read();
+
+      switch (incomingNumber)
+        {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5': 
+        case '6': 
+        case '7':
+        case '8':
+        case '9':
+          number = incomingNumber - ASCII_OFFSET;
+          break;
+        case 'a':
+        case 'A':
+          number = 10;
+          break;
+        case 'b':
+        case 'B':
+          number = 11;
+          break;
+        case 'c':
+        case 'C':
+          number = 12;
+          break;
+        case 'd': 
+        case 'D':
+          number = 13;
+          break;
+        case 'e':
+        case 'E':
+          number = 14;
+          break;
+        case 'f':
+        case 'F':
+          number = 15;
+          break;
+        case 'x':
+        case 'X':
+          number = -1;
+        default:
+          number = -2;
+          break;
+        }
+    }while (number <= -2);
+    
   Serial.println(number);
   return number;
 }
@@ -250,6 +252,6 @@ void LightSnake::changeLoopDuration()
   int8_t newCycleTime = getNumber();
   if (newCycleTime >= 0)
     {
-      cycleTime = (unsigned long)newCycleTime;
+      cycleTime = (unsigned long)newCycleTime * 10;
     }
 }
