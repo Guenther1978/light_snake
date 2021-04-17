@@ -57,7 +57,7 @@ void Led::setDarker(bool darker)
 
 void Led::invertDarker()
 {
-  _darker != _darker;
+  _darker = !_darker;
 }
 
 
