@@ -1,3 +1,5 @@
+/**@file */
+
 #ifndef LIGHT_SNAKE_H
 #define LIGHT_SNAKE_H
 
@@ -15,11 +17,13 @@
 #define ASCII_OFFSET 48
 #define TIMEOUT 10000
 
+
+
 class LightSnake
 {
 private:
-  Led led[NUMBER_OF_LEDS];
-  Adafruit_PWMServoDriver pwm;
+  Led led[NUMBER_OF_LEDS]; /**< Array of instances of the class Led */
+  Adafruit_PWMServoDriver pwm; /**< An instance of the class Adafrui_PWMServoDriver*/
   unsigned long cycleTime;
   unsigned long loopDuration;
   unsigned long oldMillis;
@@ -30,8 +34,8 @@ public:
    *
    * The class contains one instance of the class
    * Adafruit_PWMServoDriver and an array of the
-   * class Led. The random generator will be
-   * initialized, too.
+   * class Led. The random generator and the class
+   * Serial will be initialized, too.
    */  
   void setup();
   
@@ -48,30 +52,21 @@ public:
   /**@brief This method prints an info
    *
    * The Serial Monitor of the Arduino IDE, PuTTY or picocom
-   * can be used.\
-   * H: Help\
-   * I: Info\
-   * J: Test all LEDs
-   * K: Test a single LED
-   * X: Continue agter testing single LEDs
+   * can be used.
    */
   void help();
 
   /**@brief This methode prints the info of all Leds
    *
-   * Number: number of the LED\
-   * Intensity: intensity of the LED\
-   * Darker: Is the intesity increasing or decreasing?\
-   * Duration: cycles at an intensity\
-   * Counter: vakue of the counter, counts down from
-   * duration to zero.
+   * The number, intesity, darker and duration of
+   * all LEDs are printed.
    */
   void info();
 
   /**@brief Clear all LEDs
    *
    * All LEDs are cleared by sending the intesnity
-   * Zero to the PCA9685
+   * Zero to each chanel of the PCA9685
    */
   void clearAllLEDs();
 
@@ -85,8 +80,8 @@ public:
   /**@brief Gets he number of the LED to test.
    *
    * Get the number of the LED to test.
-   * Hexadecimal number are used:\
-   * 0 1 2 3 4 5 6 7 8 9 A B C D\
+   * Hexadecimal number are used
+   * (0..9, A, B, C, D).
    * X will delete this loop.
    */
   void getLEDNumber();
@@ -108,8 +103,7 @@ public:
    * First all LED are turned off. After waiting for a second,
    * every LED is turned on for a second and then turned off.
    * After waiting for a second, the next LED is turnde on and
-   * off. So the hardware
-   * can be tested.
+   * off. So the hardware can be tested.
    */
   void testAllLEDs();
 
@@ -125,13 +119,12 @@ public:
    *
    * The time sets the duration for the loop. If this value is
    * to small, the function will not wait and start immediately
-   * with the next cycle.\
+   * with the next cycle.
    * After each cycle the methods waits till the duration of
    * a cycle is over. A loop duration can be set with a
-   * char. This character represent a hexadecimal digit.\
-   * Hexadecimal number are used:\
-   * 0 1 2 3 4 5 6 7 8 9 A B C D E F\
-   * The new duration time is this digit multiplied by 10 ms.
+   * char. This character represent a hexadecimal digit.
+   * Hexadecimal number are used (0.. 9,A,B,C,D,E,F).
+   * The new duration time is this digit multiplied by 5 ms.
    */
   void changeLoopDuration();
 };
