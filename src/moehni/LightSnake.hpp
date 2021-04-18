@@ -123,7 +123,7 @@ public:
    * After each cycle the methods waits till the duration of
    * a cycle is over. A loop duration can be set with a
    * char. This character represent a hexadecimal digit.
-   * Hexadecimal number are used (0.. 9,A,B,C,D,E,F).
+   * Hexadecimal number are used (0..9, A, B, C, D, E, F).
    * The new duration time is this digit multiplied by 5 ms.
    */
   void changeLoopDuration();
