@@ -13,6 +13,7 @@ private:
   uint16_t _intensity = 0;
   uint16_t _intensityMin = 1000;
   uint16_t _intensityMax = 4095;
+  uint8_t _progmemIndex = 0;
   uint8_t _pointer = 0;
   uint8_t _pointerMax = 255;
   bool _darker = true;
@@ -54,6 +55,12 @@ public:
   /**@param pointer to the intensities*/  
   void setPointer(uint8_t);
 
+  /**@return pointer to the intensity table*/
+  uint8_t getProgmemIndex();
+
+  /**@param pointer to the intensities*/  
+  void setProgmemIndex(uint8_t);
+  
 
   // _darker
 

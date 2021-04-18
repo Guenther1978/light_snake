@@ -1,7 +1,7 @@
 #include "Led.hpp"
 
 ///////////////////////
-// get ans set methods
+// get and set methods
 ///////////////////////
 
 // _number
@@ -40,6 +40,16 @@ uint8_t Led::getPointer()
 void Led::setPointer(uint8_t pointer)
 {
   _pointer = pointer;
+}
+
+uint8_t Led::getProgmemIndex()
+{
+  return _progmemIndex;
+}
+
+void Led::setProgmemIndex(uint8_t number)
+{
+  _progmemIndex = number;
 }
 
 
@@ -210,14 +220,22 @@ void Led::changePointer()
 
 void Led::pointer2int()
 {
-  _intensity = pgm_read_word_near(intensities + _pointer);
-  if (_intensity <= _intensityMin)
+  switch(_progmemIndex)
     {
-      _intensity = _intensityMin;
-    }
-  if (_intensity >= _intensityMax)
-    {
-      _intensity = _intensityMax;
+    case 0:
+      _intensity = pgm_read_word_near(intensities_0 + _pointer);
+      break;
+    case 1:
+      _intensity = pgm_read_word_near(intensities_1 + _pointer);
+      break;
+    case 2:
+      _intensity = pgm_read_word_near(intensities_2 + _pointer);
+      break;
+    case 3:
+      _intensity = pgm_read_word_near(intensities_3 + _pointer);
+      break;
+    default:
+      break;
     }
 }
 

@@ -17,8 +17,6 @@
 #define ASCII_OFFSET 48
 #define TIMEOUT 10000
 
-
-
 class LightSnake
 {
 private:
@@ -127,6 +125,14 @@ public:
    * The new duration time is this digit multiplied by 5 ms.
    */
   void changeLoopDuration();
+
+  /**@brief This methods sets the beginning of an array.
+   *
+   * There can be different arrays containing the intensities.
+   * With this method the start address is given as an offset
+   * to the array.
+   */
+  void setIndex();
 };
 
 #endif

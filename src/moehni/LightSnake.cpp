@@ -4,7 +4,7 @@ void LightSnake::setup()
 {
   pwm.begin();
   pwm.setPWMFreq(1600);
-
+  
   for (uint8_t i = 0; i < NUMBER_OF_LEDS; i ++)
   {
     led[i].setNumber(i);
@@ -19,6 +19,7 @@ void LightSnake::setup()
   Serial.begin(9600);
   while (!Serial);
   Serial.println("Setup completed");
+  Serial.println();
 }
 
 void LightSnake::loop()
@@ -81,6 +82,10 @@ void LightSnake::loop()
         case 'M':
           changeLoopDuration();
           break;
+        case 'n':
+        case 'N':
+          setIndex();
+          break;
         default:
           break;
         }
@@ -97,6 +102,7 @@ void LightSnake::help()
   Serial.println("x: continue after testing single LEDs");
   Serial.println("l: enable and disable output of the loop time");
   Serial.println("m: Change the duration of the loop");
+  Serial.println("n: Set a new intensity array");
   Serial.println();
 }
 
@@ -252,6 +258,18 @@ void LightSnake::changeLoopDuration()
   int8_t newCycleTime = getNumber();
   if (newCycleTime >= 0)
     {
-      cycleTime = (unsigned long)newCycleTime * 10;
+      cycleTime = (unsigned long)newCycleTime * 5;
+    }
+}
+
+void LightSnake::setIndex()
+{
+  int8_t newIndex = getNumber();
+  if ((newIndex >= 0) && (newIndex < NUMBER_OF_LEDS))
+    {
+      for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)
+          {
+            led[i].setProgmemIndex(newIndex);
+          }
     }
 }
