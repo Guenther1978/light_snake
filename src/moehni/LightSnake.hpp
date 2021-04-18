@@ -10,12 +10,12 @@
 #include "SpeedControl.hpp"
 
 #define NUMBER_OF_LEDS 14
+#define NUMBER_OF_PROGMEMS 4
 #define DELAY_TIME 20
 #define DURATION_MAX 3
 #define FULL_INTENSITY 4095
 #define DELAY_TEST 1000
 #define ASCII_OFFSET 48
-#define TIMEOUT 10000
 
 class LightSnake
 {

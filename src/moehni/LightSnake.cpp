@@ -15,7 +15,6 @@ void LightSnake::setup()
   outputOfLoopDuration = false;
 
   randomSeed(analogRead(0));
-  Serial.setTimeout(TIMEOUT);
   Serial.begin(9600);
   while (!Serial);
   Serial.println("Setup completed");
@@ -265,7 +264,7 @@ void LightSnake::changeLoopDuration()
 void LightSnake::setIndex()
 {
   int8_t newIndex = getNumber();
-  if ((newIndex >= 0) && (newIndex < NUMBER_OF_LEDS))
+  if ((newIndex >= 0) && (newIndex < NUMBER_OF_PROGMEMS))
     {
       for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)
           {
