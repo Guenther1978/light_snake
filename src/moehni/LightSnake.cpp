@@ -2,6 +2,8 @@
 
 void LightSnake::setup()
 {
+  uint8_t index;
+  
   pwm.begin();
   pwm.setPWMFreq(1600);
   
@@ -11,10 +13,12 @@ void LightSnake::setup()
   }
 
   oldMillis = millis();
-  cycleTime = DELAY_TIME;
   outputOfLoopDuration = false;
 
   randomSeed(analogRead(0));
+
+  readEeprom();
+  
   Serial.begin(9600);
   while (!Serial);
   Serial.println("Setup completed");
@@ -85,6 +89,10 @@ void LightSnake::loop()
         case 'N':
           setIndex();
           break;
+        case 'o':
+        case 'O':
+          writeEeprom();
+          break;
         default:
           break;
         }
@@ -102,18 +110,23 @@ void LightSnake::help()
   Serial.println("l: enable and disable output of the loop time");
   Serial.println("m: Change the duration of the loop");
   Serial.println("n: Set a new intensity array");
+  Serial.println("o: Save the cycle time and the PROGMEM index");
   Serial.println();
 }
 
 void LightSnake::info()
 {  
   Serial.println();
-  Serial.println("number\tintensity\tdarker\tduration\tcounter");
+  Serial.println("number\tintensity\tpointer\tPROGMEM_index\tdarker\tduration\tcounter");
   for(int i = 0; i < NUMBER_OF_LEDS; i++)
     {
       Serial.print(led[i].getNumber());
       Serial.print("\t");
       Serial.print(led[i].getIntensity());
+      Serial.print("\t\t");
+      Serial.print(led[i].getPointer());
+      Serial.print("\t");
+      Serial.print(led[i].getProgmemIndex());
       Serial.print("\t\t");
       Serial.print(led[i].getDarker());
       Serial.print("\t");
@@ -267,8 +280,27 @@ void LightSnake::setIndex()
   if ((newIndex >= 0) && (newIndex < NUMBER_OF_PROGMEMS))
     {
       for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)
-          {
+        {
             led[i].setProgmemIndex(newIndex);
-          }
+        }
     }
+}
+
+void LightSnake::readEeprom()
+{
+  uint8_t index;
+  
+  cycleTime = EEPROM.read(ADDRESS_LOOP_TIME);
+  index = EEPROM.read(ADDRESS_PROGMEM_INDEX);
+  
+  for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)
+    {
+      led[i].setProgmemIndex(index);
+    }
+}
+
+void LightSnake::writeEeprom()
+{
+  EEPROM.write(ADDRESS_LOOP_TIME, cycleTime);
+  EEPROM.write(ADDRESS_PROGMEM_INDEX, led[0].getProgmemIndex());
 }

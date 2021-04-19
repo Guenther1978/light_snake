@@ -6,6 +6,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
+#include <EEPROM.h>
 #include "Led.hpp"
 #include "SpeedControl.hpp"
 
@@ -16,6 +17,8 @@
 #define FULL_INTENSITY 4095
 #define DELAY_TEST 1000
 #define ASCII_OFFSET 48
+#define ADDRESS_LOOP_TIME 0
+#define ADDRESS_PROGMEM_INDEX 1
 
 class LightSnake
 {
@@ -57,13 +60,14 @@ public:
   /**@brief This methode prints the info of all Leds
    *
    * The number, intesity, darker and duration of
-   * all LEDs are printed.
+   * all LEDs are printed. And the time each the last
+   * loop has needed and the cycle time of the loop.
    */
   void info();
 
   /**@brief Clear all LEDs
    *
-   * All LEDs are cleared by sending the intesnity
+   * All LEDs are cleared by sending the intensity
    * Zero to each chanel of the PCA9685
    */
   void clearAllLEDs();
@@ -123,16 +127,34 @@ public:
    * char. This character represent a hexadecimal digit.
    * Hexadecimal number are used (0..9, A, B, C, D, E, F).
    * The new duration time is this digit multiplied by 5 ms.
+   * At the end of the loop, the output of millis() is polled.
+   * If the value 0 is choosen, the next loop starts immediately.
    */
   void changeLoopDuration();
 
   /**@brief This methods sets the beginning of an array.
    *
    * There can be different arrays containing the intensities.
-   * With this method the start address is given as an offset
-   * to the array.
+   * With this method the index of the progmem is set globally
+   * for all LEDs.
    */
   void setIndex();
+
+  /**@brief This method reads the content of the EEPROM.
+   *
+   * The user can set the cycle time and the index of the
+   * used PROGMEM. The setup function can read the stored
+   * values.
+   */
+  void readEeprom();
+
+  /**@brief This methods writes the current values to the EEPROM.
+   *
+   * If the user changed the loop time and the PROGMEM index,
+   * he can save this to the EEPROM. So they will be loaded at
+   * the next start.
+   */
+  void writeEeprom();
 };
 
 #endif
