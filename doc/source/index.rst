@@ -1,3 +1,4 @@
+
 .. Light Snake documentation master file, created by
    sphinx-quickstart on Sun Apr 11 18:28:23 2021.
    You can adapt this file completely to your liking, but it should at least
@@ -10,6 +11,8 @@ Welcome to Light Snake's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   introduction.rst
+   hardware.rst
    light_snake.rst
    led.rst
    speed_control.rst
