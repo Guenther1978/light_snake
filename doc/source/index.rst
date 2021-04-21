@@ -13,6 +13,8 @@ Welcome to Light Snake's documentation!
 
    introduction.rst
    hardware.rst
+   software.rst
+   communication.rst
    light_snake.rst
    led.rst
    speed_control.rst
