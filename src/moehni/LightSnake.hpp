@@ -11,7 +11,7 @@
 #include "SpeedControl.hpp"
 
 #define NUMBER_OF_LEDS 14
-#define NUMBER_OF_PROGMEMS 4
+#define NUMBER_OF_PROGMEMS 5
 #define DELAY_TIME 20
 #define DURATION_MAX 3
 #define FULL_INTENSITY 4095

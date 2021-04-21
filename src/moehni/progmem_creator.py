@@ -10,7 +10,7 @@ i = 0;
 
 offset_0 = 125
 
-for i in range(4):
+for i in range(5):
     name = "const PROGMEM uint16_t intensities_" + str(i) + "[] = {";
     f.write(name)
     offset = offset_0 * 2**i
