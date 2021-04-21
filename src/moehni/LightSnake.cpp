@@ -291,7 +291,16 @@ void LightSnake::readEeprom()
   uint8_t index;
   
   cycleTime = EEPROM.read(ADDRESS_LOOP_TIME);
+  if (cycleTime == 0xFF)
+    {
+      cycleTime = DELAY_TIME;
+    }
+  
   index = EEPROM.read(ADDRESS_PROGMEM_INDEX);
+  if (index == 0xFF)
+    {
+      index = PROGMEM_NUMBER;
+    }
   
   for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)
     {

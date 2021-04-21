@@ -12,6 +12,7 @@
 
 #define NUMBER_OF_LEDS 14
 #define NUMBER_OF_PROGMEMS 5
+#define PROGMEM_NUMBER 3
 #define DELAY_TIME 20
 #define DURATION_MAX 3
 #define FULL_INTENSITY 4095
@@ -144,7 +145,9 @@ public:
    *
    * The user can set the cycle time and the index of the
    * used PROGMEM. The setup function can read the stored
-   * values.
+   * values. If a 255 is read, than the EEPROM has not been
+   * programmed yet. Than the cycle time and the index are
+   * set to default values.
    */
   void readEeprom();
 
