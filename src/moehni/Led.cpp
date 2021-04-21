@@ -234,6 +234,9 @@ void Led::pointer2int()
     case 3:
       _intensity = pgm_read_word_near(intensities_3 + _pointer);
       break;
+    case 4:
+      _intensity = pgm_read_word_near(intensities_4 + _pointer);
+      break;
     default:
       break;
     }
