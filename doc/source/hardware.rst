@@ -9,7 +9,7 @@ Each current source contains a NE555 working as a two-level controller. The aver
 of the current is 300 mA. The pin 4 of a NE555 is a reset pin, which can be used for
 intensity control via PWM. The next photo shows the LTspice model, which is available in the repository.
 
-.. image:: LTspiceModelCurrentSourceNE555
+.. image:: LTspiceModelCurrentSourceNE555.png
    :width: 600
 
 To control all 14 current sources the `Adafruit PCA9685 16-Channel Servo Driver`_,
