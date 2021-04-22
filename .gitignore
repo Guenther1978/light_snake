@@ -42,3 +42,8 @@
 
 # Doxygen xml folder
 /doc/xml/*
+
+# Temporary files created by LTspice
+/LTspice/*.log
+/LTspice/*.net
+/LTspice/*.raw
