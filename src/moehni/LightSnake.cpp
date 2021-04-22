@@ -7,7 +7,7 @@ void LightSnake::setup()
   uint8_t index;
   
   pwm.begin();
-  pwm.setPWMFreq(1600);
+  pwm.setPWMFreq(800);
   
   for (uint8_t i = 0; i < NUMBER_OF_LEDS; i ++)
   {
