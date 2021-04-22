@@ -1,5 +1,7 @@
 #include "LightSnake.hpp"
 
+SoftwareSerial bluetoothCommunicator(2, 3);
+  
 void LightSnake::setup()
 {
   uint8_t index;
@@ -18,6 +20,8 @@ void LightSnake::setup()
   randomSeed(analogRead(0));
 
   readEeprom();
+  
+  bluetoothCommunicator.begin(9600);
   
   Serial.begin(9600);
   while (!Serial);
@@ -83,15 +87,32 @@ void LightSnake::loop()
           break;
         case 'm':
         case 'M':
-          changeLoopDuration();
+          changeLoopDuration(false);
           break;
         case 'n':
         case 'N':
-          setIndex();
+          setIndex(false);
           break;
         case 'o':
         case 'O':
           writeEeprom();
+          break;
+        default:
+          break;
+        }
+    }
+    if (bluetoothCommunicator.available())
+    {
+      incomingByte = bluetoothCommunicator.read();
+      switch (incomingByte)
+        {
+        case 'm':
+        case 'M':
+          changeLoopDuration(true);
+          break;
+        case 'n':
+        case 'N':
+          setIndex(true);
           break;
         default:
           break;
@@ -265,18 +286,44 @@ void LightSnake::invertOutputOfLoopDuration()
     }
 }
 
-void LightSnake::changeLoopDuration()
+void LightSnake::changeLoopDuration(bool bt)
 {
-  int8_t newCycleTime = getNumber();
+  int8_t newCycleTime = -1;
+  
+  if (bt)
+  {
+    if (bluetoothCommunicator.available())
+    {
+      newCycleTime = bluetoothCommunicator.read() - ASCII_OFFSET;
+    }
+  }
+  else
+  {
+    newCycleTime = getNumber();
+  }
+  
   if (newCycleTime >= 0)
     {
       cycleTime = (unsigned long)newCycleTime * 5;
     }
 }
 
-void LightSnake::setIndex()
+void LightSnake::setIndex(bool bt)
 {
-  int8_t newIndex = getNumber();
+  int8_t newIndex = -1;
+
+  if (bt)
+  {
+    if (bluetoothCommunicator.available())
+    {
+      newIndex = bluetoothCommunicator.read() - ASCII_OFFSET;
+    }
+  }
+  else
+  {
+    newIndex = getNumber();
+  }
+  
   if ((newIndex >= 0) && (newIndex < NUMBER_OF_PROGMEMS))
     {
       for (uint8_t i = 0; i < NUMBER_OF_LEDS; i++)

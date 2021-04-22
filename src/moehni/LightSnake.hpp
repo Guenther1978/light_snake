@@ -7,6 +7,7 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 #include <EEPROM.h>
+#include <SoftwareSerial.h>
 #include "Led.hpp"
 #include "SpeedControl.hpp"
 
@@ -131,7 +132,7 @@ public:
    * At the end of the loop, the output of millis() is polled.
    * If the value 0 is choosen, the next loop starts immediately.
    */
-  void changeLoopDuration();
+  void changeLoopDuration(bool);
 
   /**@brief This methods sets the beginning of an array.
    *
@@ -139,7 +140,7 @@ public:
    * With this method the index of the progmem is set globally
    * for all LEDs.
    */
-  void setIndex();
+  void setIndex(bool);
 
   /**@brief This method reads the content of the EEPROM.
    *
